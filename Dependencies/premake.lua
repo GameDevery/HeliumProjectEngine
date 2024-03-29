@@ -1,6 +1,6 @@
 Helium = {}
 
-Helium.RequiredPremakeVersion = '5.0.0-alpha8'
+Helium.RequiredPremakeVersion = '5.0.0-beta1'
 Helium.RequiredClVersion = 190023918
 
 Helium.ExecuteAndCapture = function( cmd, raw )

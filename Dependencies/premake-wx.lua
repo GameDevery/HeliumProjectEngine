@@ -139,7 +139,7 @@ Helium.BuildWxWidgets = function(debug, release)
 
 		local vcvars_ver = ""
 		if _ACTION == "vs2022" then
-			vcvars_ver = "-vcvars_ver=14.32 "
+			vcvars_ver = "-vcvars_ver=14 "
 		elseif _ACTION == "vs2019" then
 			vcvars_ver = "-vcvars_ver=14.29 "
 		elseif _ACTION == "vs2017" then

@@ -73,6 +73,24 @@ Helium.CheckEnvironment = function ()
 	end
 end
 
+--newoption
+--{
+--	trigger = "pch",
+--	description = "Build with precompiled headers",
+--}
+--
+--newoption
+--{
+--	trigger = "shared",
+--	description = "Build as shared libraries",
+--}
+--
+--newoption
+--{
+--	trigger = "nortti",
+--	description = "Disable run-time type information",
+--}
+
 -- Common settings for projects linking with libraries.
 Helium.DoBasicProjectSettings = function()
 
@@ -86,6 +104,22 @@ Helium.DoBasicProjectSettings = function()
 	{
 		"FatalWarnings",
 	}
+
+--	if _OPTIONS['shared'] then
+--		defines
+--		{
+--			"HELIUM_SHARED=1",
+--		}
+--	else
+--		defines
+--		{
+--			"HELIUM_SHARED=0",
+--		}
+--	end
+--
+--	if _OPTIONS['nortti'] then
+--		rtti "Off"
+--	end
 
 	if _OPTIONS[ "gfxapi" ] == "direct3d" then
 		defines
@@ -122,9 +156,9 @@ Helium.DoBasicProjectSettings = function()
 
 	includedirs
 	{
-		"Core/Source",
-		"Core/Dependencies/rapidjson/include",
-		"Core/Dependencies/mongo-c/src",
+		"Dependencies/rapidjson/include",
+		"Dependencies/mongo-c/src",
+		"Source/Core",
 		"Source/Engine",
 		"Source/Tools",
 		"Dependencies/ois/includes",
@@ -175,7 +209,7 @@ Helium.DoTestsProjectSettings = function()
 	includedirs
 	{
 		".",
-		"Core/Dependencies/googletest/googletest/include"
+		"Dependencies/googletest/googletest/include"
 	}
 
 	links
@@ -302,6 +336,7 @@ Helium.DoModuleProjectSettings = function( baseDirectory, tokenPrefix, moduleNam
 
 	Helium.DoBasicProjectSettings()
 
+--	if _OPTIONS['shared'] then
 	if tools then
 		kind "SharedLib"
 	else

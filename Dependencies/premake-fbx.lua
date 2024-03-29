@@ -6,6 +6,8 @@ thisFileLocation = path.getdirectory( thisFileLocation )
 
 require( thisFileLocation .. '/premake' )
 
+local fbxSdkVsVersion = "vs2019"
+
 Helium.RequiredFbxVersion = '2020.2'
 
 Helium.GetFbxSdkLocation = function()
@@ -52,15 +54,15 @@ Helium.PublishFbx = function( bin )
 		table.insert( files, { file="libfbxsdk.dylib", source=Helium.GetFbxSdkLocation() .. "lib/clang/release/", target=bin .. "Release/" .. Helium.GetBundleExecutablePath() } )
 	elseif os.host() == "windows" then
 		if Helium.Build32Bit() then
-			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. _ACTION .. "/x86/debug/",   target=bin .. "Debug/" .. Helium.GetBundleExecutablePath() } )
-			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. _ACTION .. "/x86/release/", target=bin .. "Intermediate/" .. Helium.GetBundleExecutablePath() } )
-			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. _ACTION .. "/x86/release/", target=bin .. "Profile/" .. Helium.GetBundleExecutablePath() } )
-			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. _ACTION .. "/x86/release/", target=bin .. "Release/" .. Helium.GetBundleExecutablePath() } )
+			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. fbxSdkVsVersion .. "/x86/debug/",   target=bin .. "Debug/" .. Helium.GetBundleExecutablePath() } )
+			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. fbxSdkVsVersion .. "/x86/release/", target=bin .. "Intermediate/" .. Helium.GetBundleExecutablePath() } )
+			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. fbxSdkVsVersion .. "/x86/release/", target=bin .. "Profile/" .. Helium.GetBundleExecutablePath() } )
+			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. fbxSdkVsVersion .. "/x86/release/", target=bin .. "Release/" .. Helium.GetBundleExecutablePath() } )
 		else
-			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. _ACTION .. "/x64/debug/",   target=bin .. "Debug/" .. Helium.GetBundleExecutablePath() } )
-			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. _ACTION .. "/x64/release/", target=bin .. "Intermediate/" .. Helium.GetBundleExecutablePath() } )
-			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. _ACTION .. "/x64/release/", target=bin .. "Profile/" .. Helium.GetBundleExecutablePath() } )
-			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. _ACTION .. "/x64/release/", target=bin .. "Release/" .. Helium.GetBundleExecutablePath() } )
+			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. fbxSdkVsVersion .. "/x64/debug/",   target=bin .. "Debug/" .. Helium.GetBundleExecutablePath() } )
+			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. fbxSdkVsVersion .. "/x64/release/", target=bin .. "Intermediate/" .. Helium.GetBundleExecutablePath() } )
+			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. fbxSdkVsVersion .. "/x64/release/", target=bin .. "Profile/" .. Helium.GetBundleExecutablePath() } )
+			table.insert( files, { file="libfbxsdk.dll", source=Helium.GetFbxSdkLocation() .. "lib/" .. fbxSdkVsVersion .. "/x64/release/", target=bin .. "Release/" .. Helium.GetBundleExecutablePath() } )
 		end
 	else
 		print("Implement support for " .. os.host() .. " to PublishFBX()")
@@ -127,23 +129,23 @@ Helium.DoFbxProjectSettings = function( bin )
 	filter { "system:windows", "architecture:x86", "configurations:Debug" }
 		libdirs
 		{
-			Helium.GetFbxSdkLocation() .. "/lib/" .. _ACTION .. "/x86/debug",
+			Helium.GetFbxSdkLocation() .. "/lib/" .. fbxSdkVsVersion .. "/x86/debug",
 		}
 	filter { "system:windows", "architecture:x86_64", "configurations:Debug" }
 		libdirs
 		{
-			Helium.GetFbxSdkLocation() .. "/lib/" .. _ACTION .. "/x64/debug",
+			Helium.GetFbxSdkLocation() .. "/lib/" .. fbxSdkVsVersion .. "/x64/debug",
 		}
 
 	filter { "system:windows", "architecture:x86", "configurations:not Debug" }
 		libdirs
 		{
-			Helium.GetFbxSdkLocation() .. "/lib/" .. _ACTION .. "/x86/release",
+			Helium.GetFbxSdkLocation() .. "/lib/" .. fbxSdkVsVersion .. "/x86/release",
 		}
 	filter { "system:windows", "architecture:x86_64", "configurations:not Debug" }
 		libdirs
 		{
-			Helium.GetFbxSdkLocation() .. "/lib/" .. _ACTION .. "/x64/release",
+			Helium.GetFbxSdkLocation() .. "/lib/" .. fbxSdkVsVersion .. "/x64/release",
 		}
 
 	filter { "system:windows", "kind:SharedLib or *App" }
